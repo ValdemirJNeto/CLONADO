@@ -127,18 +127,25 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v4
+
       - name: Trivy - bloqueia em CRITICAL/HIGH
-        run: |
-          trivy fs . \
-            --severity CRITICAL,HIGH \
-            --format table
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+          format: 'table'
 
       - name: Trivy - relatorio informativo
         if: always()
-        run: |
-          trivy fs . \
-            --severity MEDIUM,LOW \
-            --format table
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          severity: 'MEDIUM,LOW'
+          exit-code: '0'
+          format: 'table'
 
       - name: Publicar relatorio do Trivy
         if: always()

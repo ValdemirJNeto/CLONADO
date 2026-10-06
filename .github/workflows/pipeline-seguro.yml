@@ -127,16 +127,11 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v4
-
       - name: Trivy - bloqueia em CRITICAL/HIGH
-        uses: aquasecurity/trivy-action@v0.36.0
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          severity: 'CRITICAL,HIGH'
-          exit-code: '0'
-          format: 'sarif'
-          output: 'trivy-fs-results.sarif'
+        run: |
+          trivy fs . \
+            --severity CRITICAL,HIGH \
+            --format table
 
       - name: Trivy - relatorio informativo (nao bloqueia)
         if: always()

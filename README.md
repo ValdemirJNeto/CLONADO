@@ -86,3 +86,4 @@ achados na interface web.
 Consulte o Laboratório de Segurança em Kubernetes para o passo a passo
 completo de instalação do Minikube, deploy da baseline vulnerável, e
 aplicação progressiva de cada correção.
+# teste

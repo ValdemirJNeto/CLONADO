@@ -133,15 +133,21 @@ jobs:
             --severity CRITICAL,HIGH \
             --format table
 
-      - name: Trivy - relatorio informativo (nao bloqueia)
+      - name: Instalar Trivy
         if: always()
-        uses: aquasecurity/trivy-action@v0.36.0
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          severity: 'MEDIUM,LOW'
-          exit-code: '0'
-          format: 'table'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget -qO-
+      https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.74.0_Linux-64bit.tar.gz | tar xz
+          sudo mv trivy /usr/local/bin/
+ 
+      - name: Trivy - relatorio informativo
+        if: always()
+        run: |
+          trivy fs . \
+            --severity MEDIUM,LOW \
+            --format table
 
       - name: Publicar relatorio do Trivy
         if: always()

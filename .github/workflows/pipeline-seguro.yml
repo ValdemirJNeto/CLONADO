@@ -137,7 +137,7 @@ jobs:
           exit-code: '0'
           format: 'table'
 
-      - name: Trivy - relatorio informativo
+      - name: Trivy - relatorio informativo (nao bloqueia)
         if: always()
         uses: aquasecurity/trivy-action@v0.36.0
         with:
